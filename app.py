@@ -41,7 +41,7 @@ def index():
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         body {{ background: linear-gradient(135deg, #0066CC 0%, #FFD700 100%); min-height: 100vh; padding: 20px; font-family: 'Segoe UI', Tahoma; }}
-        .container-custom {{ max-width: 1200px; background: white; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.3); padding: 50px; }}
+        .container-custom {{ width: 100%; margin: 0 auto; max-widthwidth: 1200px; background: white; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.3); padding: 20px 30px; }}
         .header {{ text-align: center; margin-bottom: 40px; }}
         .header h1 {{ font-size: 3em; font-weight: bold; color: #0066CC; margin: 20px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }}
         .header p {{ color: #666; font-size: 1.2em; }}
