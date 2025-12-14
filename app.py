@@ -57,8 +57,10 @@ def index():
         .stat-box p {{ margin: 0; font-size: 1.1em; opacity: 0.9; }}
         .section-title {{ font-size: 2em; color: #0066CC; margin: 40px 0 20px 0; padding-bottom: 15px; border-bottom: 4px solid #FFD700; display: flex; align-items: center; gap: 15px; }}
         .section-title i {{ color: #FFD700; font-size: 1.8em; }}
-        .table {{ margin-top: 20px; border-radius: 10px; overflow: hidden; }}
+        .table {{ margin-top: 20px; border-radius: 10px; overflow: hidden;  border: 1px solid #ccc;}}
         .table thead {{ background: linear-gradient(135deg, #0066CC 0%, #FFD700 100%); color: white; font-weight: bold; }}
+         .table th, .table td {{ border: 1px solid #ddd; padding: 12px; }}
+         
         .table tbody tr {{ transition: all 0.2s; }}
         .table tbody tr:hover {{ background-color: #E6F2FF; transform: scale(1.01); box-shadow: 0 3px 10px rgba(0,102,204,0.2); }}
         .endpoint-card {{ background: linear-gradient(135deg, #E6F2FF 0%, #FFFACD 100%); border-left: 5px solid #0066CC; padding: 20px; margin: 15px 0; border-radius: 10px; transition: all 0.3s; }}
