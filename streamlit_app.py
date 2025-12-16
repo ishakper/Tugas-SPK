@@ -282,33 +282,33 @@ with tab6:
  
  col1, col2 = st.columns(2)
  with col1:
- st.markdown("#### Parameter Model")
- st.write("""
- - **K (Neighbors)**: 5
- - **Distance Metric**: Euclidean
- - **Features Used**: 2 (total_penumpang, kapasitas_kursi)
- - **Data Points**: 87 trips
- """)
+     st.markdown("#### Parameter Model")
+     st.write("""
+     - **K (Neighbors)**: 5
+     - **Distance Metric**: Euclidean
+     - **Features Used**: 2 (total_penumpang, kapasitas_kursi)
+     - **Data Points**: 87 trips
+     """)
  
  with col2:
- st.markdown("#### Fitur yang Digunakan")
- st.write("""
- 1. **Total Penumpang**: Jumlah penumpang dalam trip
- 2. **Kapasitas Kursi**: Total kapasitas kapal
-    
- Fitur ini di-normalize menggunakan StandardScaler
- untuk memastikan scale yang sama dalam perhitungan jarak.
- """)
+     st.markdown("#### Fitur yang Digunakan")
+     st.write("""
+     1. **Total Penumpang**: Jumlah penumpang dalam trip
+     2. **Kapasitas Kursi**: Total kapasitas kapal
+        
+     Fitur ini di-normalize menggunakan StandardScaler
+     untuk memastikan scale yang sama dalam perhitungan jarak.
+     """)
  
  st.divider()
  st.markdown("### Analisis Trip Type")
  
  col1, col2 = st.columns(2)
  with col1:
- if 'type_trip' in df.columns:
- trip_dist = df['type_trip'].value_counts()
- st.write("**Distribusi Trip Type:**")
- st.bar_chart(trip_dist)
+     if 'type_trip' in df.columns:
+     trip_dist = df['type_trip'].value_counts()
+     st.write("**Distribusi Trip Type:**")
+     st.bar_chart(trip_dist)
  
  with col2:
  if 'jenis_hari' in df.columns:
