@@ -1,0 +1,11 @@
+id_trip,tanggal,jam_berangkat,jam_tiba,total_penumpang,kapasitas_kursi,anak,type_trip,keterangan_operasi,durasi_menit,persentase_isi,hari,jenis_hari,shift_waktu,harga_per_orang,harga_total_dasar,multiplier_harga,harga_final
+V.01,2025-06-30,12:24,07:45,6,15,1,Open Trip,Normal,-279,0.4,Monday,Weekday,Siang,183333,1100000,1.0,1100000
+V.02,2025-05-28,09:59,16:03,4,15,1,Open Trip,Normal,364,0.27,Wednesday,Weekday,Pagi,175000,700000,0.9,630000
+V.03,2025-05-22,15:44,09:04,7,15,0,Privat,Normal,-400,0.47,Thursday,Weekday,Sore,385714,2700000,1.2,3240000
+V.04,2025-06-07,13:14,06:55,3,15,2,Privat,Normal,-379,0.2,Saturday,Weekend,Siang,766667,2300000,1.3,2990000
+V.05,2025-06-05,15:20,11:04,5,15,3,Open Trip,Normal,-256,0.33,Thursday,Weekday,Sore,140000,700000,1.2,840000
+V.06,2025-06-04,17:49,14:15,7,15,1,Open Trip,Normal,-214,0.47,Wednesday,Weekday,Sore,162500,1137500,1.2,1365000
+V.07,2025-05-29,05:14,10:42,6,15,1,Privat,Normal,328,0.4,Thursday,Weekday,Pagi,650000,3900000,0.9,3510000
+V.08,2025-05-27,05:51,13:13,4,15,1,Open Trip,Normal,442,0.27,Tuesday,Weekday,Pagi,175000,700000,0.9,630000
+V.09,2025-07-03,10:25,14:08,9,15,1,Open Trip,Normal,223,0.6,Thursday,Weekday,Pagi,165278,1487500,0.9,1338750
+V.10,2025-06-24,09:04,17:59,15,15,3,Open Trip,Normal,535,1.0,Tuesday,Weekday,Pagi,135000,2025000,0.9,1822500
