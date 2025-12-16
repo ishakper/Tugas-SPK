@@ -37,11 +37,10 @@ with st.sidebar:
         st.warning(f"Could not calculate metrics: {e}")
 
 # Main Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Data", "Charts", "KNN", "Export", "Info"])
 
 # TAB 1: DATA EXPLORER
 with tab1:
-    st.subheader("Trip Data Explorer")
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["Data", "Charts", "KNN", "Export", "Info", "Model Analysis"])
     
     col1, col2 = st.columns(2)
     with col1:
@@ -270,3 +269,59 @@ with tab5:
     st.write("**Dataset Overview:**")
     st.write(f"Total Records: {len(df)}")
     st.dataframe(df.describe(), use_container_width=True)
+
+# TAB 6: MODEL ANALYSIS
+with tab6:
+ st.subheader("🤖 KNN Model Documentation & Analysis")
+ 
+ st.markdown("### Algoritma K-Nearest Neighbor (KNN)")
+ st.write("""
+ **KNN** adalah algoritma machine learning yang berbasis pada prinsip similarity.
+ Algoritma ini menemukan K data points terdekat dan menggunakan mayoritas label mereka untuk prediksi.
+ """)
+ 
+ col1, col2 = st.columns(2)
+ with col1:
+ st.markdown("#### Parameter Model")
+ st.write("""
+ - **K (Neighbors)**: 5
+ - **Distance Metric**: Euclidean
+ - **Features Used**: 2 (total_penumpang, kapasitas_kursi)
+ - **Data Points**: 87 trips
+ """)
+ 
+ with col2:
+ st.markdown("#### Fitur yang Digunakan")
+ st.write("""
+ 1. **Total Penumpang**: Jumlah penumpang dalam trip
+ 2. **Kapasitas Kursi**: Total kapasitas kapal
+    
+ Fitur ini di-normalize menggunakan StandardScaler
+ untuk memastikan scale yang sama dalam perhitungan jarak.
+ """)
+ 
+ st.divider()
+ st.markdown("### Analisis Trip Type")
+ 
+ col1, col2 = st.columns(2)
+ with col1:
+ if 'type_trip' in df.columns:
+ trip_dist = df['type_trip'].value_counts()
+ st.write("**Distribusi Trip Type:**")
+ st.bar_chart(trip_dist)
+ 
+ with col2:
+ if 'jenis_hari' in df.columns:
+ day_dist = df['jenis_hari'].value_counts()
+ st.write("**Distribusi Hari:**")
+ st.pie_chart(day_dist)
+ 
+ st.divider()
+ st.markdown("### Cara Kerja Sistem Rekomendasi")
+ st.write("""
+ 1. **Input User**: Jumlah penumpang, tipe trip, dan tipe hari
+ 2. **Normalisasi**: Data input di-normalize sesuai scaling data training
+ 3. **Hitung Jarak**: Hitung Euclidean distance ke semua trips dalam database
+ 4. **Ambil K Terdekat**: Pilih 5 trips dengan jarak terkecil
+ 5. **Tampilkan Hasil**: Urutkan berdasarkan similarity score
+ """)
