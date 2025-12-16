@@ -43,7 +43,32 @@ class KNNRecommender:
         print(f"\n🎯 Accuracy: {accuracy:.2%}")
 
 def train_classifier_model(X_scaled, y, scaler, feature_cols, n_neighbors=5):
-    """Train KNN classifier with train-test split"""
+    """Train KNN classifier with 80-20 train-test split.
+    
+    Parameters:
+    -----------
+    X_scaled : array-like, shape (n_samples, n_features)
+        Scaled feature matrix
+    y : array-like, shape (n_samples,)
+        Target labels (trip type: 'Open' or 'Privat')
+    scaler : StandardScaler object
+        Fitted scaler for feature normalization
+    feature_cols : list
+        List of feature column names
+    n_neighbors : int, default=5
+        Number of neighbors for KNN
+        
+    Returns:
+    --------
+    recommender : KNNRecommender
+        Trained KNN recommender model
+    X_test : array-like
+        Test feature set
+    y_test : array-like
+        Test labels
+    y_pred : array-like
+        Predicted labels on test set
+    """
     
     X_train, X_test, y_train, y_test = train_test_split(
         X_scaled,
