@@ -48,8 +48,8 @@ with tab1:
         try:
             type_filter = st.multiselect(
                 "Filter by Trip Type",
-                df['typettrip'].unique() if 'typettrip' in df.columns else [],
-                default=df['typettrip'].unique() if 'typettrip' in df.columns else []
+                df['typetrip'].unique() if 'typetrip' in df.columns else [],
+                default=df['typetrip'].unique() if 'typetrip' in df.columns else []
             )
         except Exception as e:
             st.warning(f"Could not filter by trip type: {e}")
@@ -70,7 +70,7 @@ with tab1:
     try:
         if type_filter and day_filter:
             filtered_df = df[
-                (df['typettrip'].isin(type_filter)) & 
+                (df['typetrip'].isin(type_filter)) & 
                 (df['jenishari'].isin(day_filter))
             ].copy()
         else:
@@ -80,7 +80,7 @@ with tab1:
         
         # Display data
         display_cols = ['idtrip', 'tanggal', 'jamberangkat', 'jamtiba', 'totalpenumpang', 
-                        'kapasitaskursi', 'typettrip', 'jenishari']
+                        'kapasitaskursi', 'typetrip', 'jenishari']
         available_cols = [c for c in display_cols if c in filtered_df.columns]
         
         st.dataframe(
@@ -108,9 +108,9 @@ with tab2:
                 st.pyplot(fig)
         
         with col2:
-            if 'typettrip' in df.columns:
+            if 'typetrip' in df.columns:
                 fig, ax = plt.subplots(figsize=(8, 5))
-                trip_counts = df['typettrip'].value_counts()
+                trip_counts = df['typetrip'].value_counts()
                 colors = ['#FF6B6B', '#4ECDC4']
                 ax.pie(trip_counts.values, labels=trip_counts.index, autopct='%1.1f%%', colors=colors[:len(trip_counts)], startangle=90)
                 ax.set_title('Trip Type Distribution')
@@ -155,10 +155,10 @@ with tab3:
             )
         
         with col2:
-            if 'typettrip' in df.columns:
+            if 'typetrip' in df.columns:
                 input_type = st.selectbox(
                     "Preferred Trip Type",
-                    df['typettrip'].unique()
+                    df['typetrip'].unique()
                 )
             else:
                 input_type = "Open Trip"
@@ -187,7 +187,7 @@ with tab3:
                 distances = np.sqrt(np.sum((X_scaled - query_scaled[0])**2, axis=1))
                 top_indices = np.argsort(distances)[:5]
                 
-                rec_cols = ['idtrip', 'tanggal', 'jamberangkat', 'totalpenumpang', 'typettrip']
+                rec_cols = ['idtrip', 'tanggal', 'jamberangkat', 'totalpenumpang', 'typetrip']
                 available_rec_cols = [c for c in rec_cols if c in df.columns]
                 
                 recommendations = df.iloc[top_indices][available_rec_cols].copy()
@@ -209,8 +209,8 @@ with tab4:
         
         with col1:
             export_types = ["All"]
-            if 'typettrip' in df.columns:
-                export_types.extend(df['typettrip'].unique())
+            if 'typetrip' in df.columns:
+                export_types.extend(df['typetrip'].unique())
             export_type = st.selectbox("Select Trip Type to Export", export_types)
         
         with col2:
@@ -220,8 +220,8 @@ with tab4:
             export_day = st.selectbox("Select Day Type to Export", export_days)
         
         export_df = df.copy()
-        if export_type != "All" and 'typettrip' in df.columns:
-            export_df = export_df[export_df['typettrip'] == export_type]
+        if export_type != "All" and 'typetrip' in df.columns:
+            export_df = export_df[export_df['typetrip'] == export_type]
         if export_day != "All" and 'jenishari' in df.columns:
             export_df = export_df[export_df['jenishari'] == export_day]
         
