@@ -80,7 +80,33 @@ def scale_features(X, scaler=None):
     return X_scaled, scaler
 
 def prepare_full_pipeline(filepath):
-    """Complete preprocessing pipeline"""
+    """Complete preprocessing pipeline from raw data to scaled features.
+    
+    This function orchestrates all preprocessing steps:
+    1. Load data from CSV
+    2. Add trip type column (80% Open, 20% Privat)
+    3. Extract and engineer features
+    4. One-hot encode categorical features
+    5. Scale all features using StandardScaler
+    
+    Parameters:
+    -----------
+    filepath : str
+        Path to the CSV data file
+        
+    Returns:
+    --------
+    df : DataFrame
+        Original dataframe with added features
+    df_encoded : DataFrame
+        Encoded dataframe with one-hot encoded categorical features
+    feature_cols : list
+        List of feature column names used for modeling
+    X_scaled : array-like
+        Scaled feature matrix ready for ML models
+    scaler : StandardScaler
+        Fitted scaler object for transforming new data
+    """
     df = load_data(filepath)
     df = add_type_trip(df)
     df = preprocess_features(df)
