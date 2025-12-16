@@ -14,7 +14,7 @@ st.markdown("Sistem rekomendasi trip dengan K-Nearest Neighbor Algorithm")
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_csv('data/trip_kapal_listrik_data_rapi.csv')
+        df = pd.read_csv('data/trip_kapal_listrik_data_rapi.csv', sep=';')
         return df
     except Exception as e:
         st.error(f"Error loading data: {e}")
@@ -31,8 +31,8 @@ with st.sidebar:
     st.subheader("📊 Data Summary")
     st.metric("Total Trips", len(df))
     try:
-        st.metric("Avg Passengers", f"{df['totalpenumpang'].mean():.1f}")
-        st.metric("Max Capacity", int(df['kapasitaskursi'].max()))
+        st.metric("Avg Passengers", f"{df['total_penumpang'].mean():.1f}")
+        st.metric("Max Capacity", int(df['kapasitas_kursi'].max()))
     except Exception as e:
         st.warning(f"Could not calculate metrics: {e}")
 
@@ -48,8 +48,8 @@ with tab1:
         try:
             type_filter = st.multiselect(
                 "Filter by Trip Type",
-                df['typetrip'].unique() if 'typetrip' in df.columns else [],
-                default=df['typetrip'].unique() if 'typetrip' in df.columns else []
+                df['type_trip'].unique() if 'type_trip' in df.columns else [],
+                default=df['type_trip'].unique() if 'type_trip' in df.columns else []
             )
         except Exception as e:
             st.warning(f"Could not filter by trip type: {e}")
@@ -70,7 +70,7 @@ with tab1:
     try:
         if type_filter and day_filter:
             filtered_df = df[
-                (df['typetrip'].isin(type_filter)) & 
+                (df['type_trip'].isin(type_filter)) & 
                 (df['jenishari'].isin(day_filter))
             ].copy()
         else:
@@ -79,8 +79,8 @@ with tab1:
         st.write(f"Showing {len(filtered_df)} of {len(df)} trips")
         
         # Display data
-        display_cols = ['idtrip', 'tanggal', 'jamberangkat', 'jamtiba', 'totalpenumpang', 
-                        'kapasitaskursi', 'typetrip', 'jenishari']
+        display_cols = ['idtrip', 'tanggal', 'jamberangkat', 'jamtiba', 'total_penumpang', 
+                        'kapasitas_kursi', 'type_trip', 'jenishari']
         available_cols = [c for c in display_cols if c in filtered_df.columns]
         
         st.dataframe(
@@ -99,18 +99,18 @@ with tab2:
         col1, col2 = st.columns(2)
         
         with col1:
-            if 'totalpenumpang' in df.columns:
+            if 'total_penumpang' in df.columns:
                 fig, ax = plt.subplots(figsize=(8, 5))
-                ax.hist(pd.to_numeric(df['totalpenumpang'], errors='coerce'), bins=15, color='skyblue', edgecolor='black')
+                ax.hist(pd.to_numeric(df['total_penumpang'], errors='coerce'), bins=15, color='skyblue', edgecolor='black')
                 ax.set_xlabel('Total Passengers')
                 ax.set_ylabel('Frequency')
                 ax.set_title('Passenger Distribution')
                 st.pyplot(fig)
         
         with col2:
-            if 'typetrip' in df.columns:
+            if 'type_trip' in df.columns:
                 fig, ax = plt.subplots(figsize=(8, 5))
-                trip_counts = df['typetrip'].value_counts()
+                trip_counts = df['type_trip'].value_counts()
                 colors = ['#FF6B6B', '#4ECDC4']
                 ax.pie(trip_counts.values, labels=trip_counts.index, autopct='%1.1f%%', colors=colors[:len(trip_counts)], startangle=90)
                 ax.set_title('Trip Type Distribution')
@@ -150,15 +150,15 @@ with tab3:
             input_passengers = st.slider(
                 "Number of Passengers",
                 min_value=1,
-                max_value=int(pd.to_numeric(df['totalpenumpang'], errors='coerce').max()),
+                max_value=int(pd.to_numeric(df['total_penumpang'], errors='coerce').max()),
                 value=5
             )
         
         with col2:
-            if 'typetrip' in df.columns:
+            if 'type_trip' in df.columns:
                 input_type = st.selectbox(
                     "Preferred Trip Type",
-                    df['typetrip'].unique()
+                    df['type_trip'].unique()
                 )
             else:
                 input_type = "Open Trip"
@@ -173,7 +173,7 @@ with tab3:
                 input_day = "Weekday"
         
         if st.button("Get Recommendations"):
-            feature_cols = ['totalpenumpang', 'kapasitaskursi']
+            feature_cols = ['total_penumpang', 'kapasitas_kursi']
             available_features = [c for c in feature_cols if c in df.columns]
             
             if len(available_features) >= 2:
@@ -187,7 +187,7 @@ with tab3:
                 distances = np.sqrt(np.sum((X_scaled - query_scaled[0])**2, axis=1))
                 top_indices = np.argsort(distances)[:5]
                 
-                rec_cols = ['idtrip', 'tanggal', 'jamberangkat', 'totalpenumpang', 'typetrip']
+                rec_cols = ['idtrip', 'tanggal', 'jamberangkat', 'total_penumpang', 'type_trip']
                 available_rec_cols = [c for c in rec_cols if c in df.columns]
                 
                 recommendations = df.iloc[top_indices][available_rec_cols].copy()
@@ -209,8 +209,8 @@ with tab4:
         
         with col1:
             export_types = ["All"]
-            if 'typetrip' in df.columns:
-                export_types.extend(df['typetrip'].unique())
+            if 'type_trip' in df.columns:
+                export_types.extend(df['type_trip'].unique())
             export_type = st.selectbox("Select Trip Type to Export", export_types)
         
         with col2:
@@ -220,8 +220,8 @@ with tab4:
             export_day = st.selectbox("Select Day Type to Export", export_days)
         
         export_df = df.copy()
-        if export_type != "All" and 'typetrip' in df.columns:
-            export_df = export_df[export_df['typetrip'] == export_type]
+        if export_type != "All" and 'type_trip' in df.columns:
+            export_df = export_df[export_df['type_trip'] == export_type]
         if export_day != "All" and 'jenishari' in df.columns:
             export_df = export_df[export_df['jenishari'] == export_day]
         
