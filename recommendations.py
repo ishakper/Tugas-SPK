@@ -2,7 +2,12 @@ import numpy as np
 import pandas as pd
 
 class TripRecommender:
-    """Fungsi-fungsi rekomendasi trip berdasarkan KNN"""
+    """KNN-based recommendation engine for electric boat trips.
+    
+    Provides recommendation methods using K-Nearest Neighbors to suggest
+    similar trips based on trip ID or user preferences (duration, passengers,
+    day of week, time shift).
+    """
     
     def __init__(self, df, df_encoded, X_scaled, nn_model, scaler, feature_cols):
         self.df = df
