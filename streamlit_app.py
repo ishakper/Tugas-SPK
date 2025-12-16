@@ -13,8 +13,8 @@ st.markdown("Sistem rekomendasi trip dengan K-Nearest Neighbor Algorithm")
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_csv('data/trip_kapal_listrik.csv')        return df
-    except Exception as e:
+        df = pd.read_csv('data/trip_kapal_listrik.csv')
+        return df    except Exception as e:
         st.warning(f"Data tidak ditemukan: {e}")
         return pd.DataFrame()
 
